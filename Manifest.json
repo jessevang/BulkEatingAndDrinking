@@ -1,0 +1,18 @@
+{
+  "Name": "BulkEatingAndDrinking",
+  "Author": "Darkmushu1",
+  "Version": "1.0.0",
+  "Description": "Eat or Drink multiple food/drinks at a time",
+  "UniqueID": "Darkmushu1.BulkEatingAndDrinking",
+  "EntryDll": "BulkEatingAndDrinking.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [ "Nexus:32809" ],
+  "Dependencies": [
+    {
+      "UniqueID": "spacechase0.GenericModConfigMenu",
+      "IsRequired": false
+    }
+  ]
+}
+
+

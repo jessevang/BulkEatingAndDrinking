@@ -1,7 +1,7 @@
 {
   "Name": "BulkEatingAndDrinking",
   "Author": "Darkmushu1",
-  "Version": "1.0.0",
+  "Version": "1.0.1",
   "Description": "Eat or Drink multiple food/drinks at a time",
   "UniqueID": "Darkmushu1.BulkEatingAndDrinking",
   "EntryDll": "BulkEatingAndDrinking.dll",

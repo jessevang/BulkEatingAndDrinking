@@ -9,8 +9,10 @@ namespace BulkEatingAndDrinking.Patches
     [HarmonyPatch(typeof(Farmer), nameof(Farmer.eatHeldObject))]
     public static class BulkEatandDrinkPatch
     {
+
         public static bool Prefix()
         {
+
             StardewValley.Item food = Game1.player.CurrentItem; 
             if (food is not StardewValley.Object obj || obj.Edibility <= 0)
             {
@@ -30,6 +32,7 @@ namespace BulkEatingAndDrinking.Patches
 
         private static void EatBulk(Farmer who, StardewValley.Object food)
         {
+
             int desiredAmount = 1;
             if (Game1.objectData.TryGetValue(food.ItemId, out var data) && data.IsDrink)
             {
@@ -88,12 +91,18 @@ namespace BulkEatingAndDrinking.Patches
             }
 
 
-            Game1.player.forceCanMove();
+            Game1.player.Halt();
+            Game1.player.CanMove = false;
+            Game1.player.FarmerSprite.StopAnimation();
             Game1.player.completelyStopAnimatingOrDoingAction();
             if (Game1.objectData.TryGetValue(food.ItemId, out var data2) && data2.IsDrink)
             {
+
                 Game1.player.itemToEat = food;
                 Game1.player.FarmerSprite.animateOnce(294, 80f, 8);
+                
+                Game1.player.canMove = false;
+                ModEntry.Instance.isPlayingDrinkAnimation = true;
 
 
             }
@@ -102,7 +111,10 @@ namespace BulkEatingAndDrinking.Patches
 
                 Game1.player.itemToEat = food;
                 Game1.player.FarmerSprite.animateOnce(216, 80f, 8);
- 
+
+                Game1.player.canMove = false;
+                ModEntry.Instance.isPlayingEatAnimation = true;
+
             }
 
 
@@ -115,6 +127,7 @@ namespace BulkEatingAndDrinking.Patches
                 Game1.addHUDMessage(new HUDMessage(Game1.content.LoadString("Strings\\StringsFromCSFiles:Game1.cs.3118", Game1.player.health - initialHealth), 5));
             }
 
+            
 
 
 

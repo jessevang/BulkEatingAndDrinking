@@ -2,6 +2,7 @@
 using HarmonyLib;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
+using StardewValley;
 using System.ComponentModel.DataAnnotations;
 
 namespace BulkEatingAndDrinking
@@ -11,14 +12,19 @@ namespace BulkEatingAndDrinking
         public int BulkEatAmount { get; set; } = 3;
         public int BulkDrinkAmount { get; set; } = 1;
 
+
     }
 
     internal sealed class ModEntry : Mod
     {
         public static ModEntry Instance { get; private set; }
         public Config Config { get; private set; }
+        public bool isPlayingEatAnimation { get; set; } = false;
+        public bool isPlayingDrinkAnimation { get; set; } = false;
+        public int eatTimerTick { get; set; } = 0;
+        public int drinkTimerTick { get; set; } = 0;
 
-        
+
         public override void Entry(IModHelper helper)
         {
             Instance = this; 
@@ -29,6 +35,51 @@ namespace BulkEatingAndDrinking
             harmony.PatchAll();
 
             helper.Events.GameLoop.GameLaunched += OnGameLaunched;
+            helper.Events.GameLoop.UpdateTicked += OnUpdateTicked;
+        }
+
+        private void OnUpdateTicked(object sender, UpdateTickedEventArgs e)
+        {
+            if (!Context.IsWorldReady)
+                return;
+
+            if (isPlayingEatAnimation)
+             {
+                Game1.player.Halt();
+                Game1.player.canMove = false;
+                eatTimerTick++;
+            }
+
+            if (isPlayingDrinkAnimation)
+            {
+                Game1.player.Halt();
+                Game1.player.canMove = false;
+                drinkTimerTick++;
+            }
+
+
+
+            if (isPlayingEatAnimation)
+            {
+                // The animation finishes when CurrentAnimation is null
+                if (eatTimerTick >= 130)
+                {
+                    Game1.player.canMove = true;
+                    isPlayingEatAnimation = false;
+                    eatTimerTick = 0;
+                }
+            }
+
+            if (isPlayingDrinkAnimation)
+            {
+                // The animation finishes when CurrentAnimation is null
+                if (drinkTimerTick >= 110)
+                {
+                    Game1.player.canMove = true;
+                    isPlayingDrinkAnimation = false;
+                    drinkTimerTick = 0;
+                }
+            }
         }
 
 

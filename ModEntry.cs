@@ -66,6 +66,7 @@ namespace BulkEatingAndDrinking
                 {
                     Game1.player.canMove = true;
                     isPlayingEatAnimation = false;
+                    //Console.WriteLine("isPlayingEatAnimation:" + isPlayingEatAnimation);
                     eatTimerTick = 0;
                 }
             }
@@ -77,6 +78,7 @@ namespace BulkEatingAndDrinking
                 {
                     Game1.player.canMove = true;
                     isPlayingDrinkAnimation = false;
+                    //Console.WriteLine("isPlayingEatAnimation:" + ModEntry.Instance.isPlayingDrinkAnimation);
                     drinkTimerTick = 0;
                 }
             }

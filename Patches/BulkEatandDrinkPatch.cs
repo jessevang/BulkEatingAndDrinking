@@ -63,7 +63,7 @@ namespace BulkEatingAndDrinking.Patches
 
 
 
-            Console.WriteLine($"Total Amount Removed:{actualAmount} TotalHealth Gained: {totalHealth}  TotalStaminaGained: {totalStamina}");
+            //Console.WriteLine($"Total Amount Removed:{actualAmount} TotalHealth Gained: {totalHealth}  TotalStaminaGained: {totalStamina}");
 
             who.removeFirstOfThisItemFromInventory(food.ItemId, actualAmount);
             IEnumerable<Buff> buffs = food.GetFoodOrDrinkBuffs();
@@ -103,7 +103,7 @@ namespace BulkEatingAndDrinking.Patches
                 
                 Game1.player.canMove = false;
                 ModEntry.Instance.isPlayingDrinkAnimation = true;
-
+                //Console.WriteLine("isPlayingEatAnimation:" + ModEntry.Instance.isPlayingDrinkAnimation);
 
             }
             else if (food.Edibility != -300)
@@ -114,6 +114,7 @@ namespace BulkEatingAndDrinking.Patches
 
                 Game1.player.canMove = false;
                 ModEntry.Instance.isPlayingEatAnimation = true;
+                //Console.WriteLine("isPlayingEatAnimation:" + ModEntry.Instance.isPlayingEatAnimation);
 
             }
 

@@ -9,7 +9,7 @@ namespace BulkEatingAndDrinking
 {
     public class Config
     {
-        public int BulkEatAmount { get; set; } = 3;
+        public string BulkEatAmount { get; set; } = "Until Full Health & Stamina"; 
         public int BulkDrinkAmount { get; set; } = 1;
 
 
@@ -23,6 +23,8 @@ namespace BulkEatingAndDrinking
         public bool isPlayingDrinkAnimation { get; set; } = false;
         public int eatTimerTick { get; set; } = 0;
         public int drinkTimerTick { get; set; } = 0;
+        public bool PlayEatAnimation { get; set; } = true;
+        public bool PlayDrinkAnimation { get; set; } = true;
 
 
         public override void Entry(IModHelper helper)
@@ -102,22 +104,22 @@ namespace BulkEatingAndDrinking
                 ModManifest,
                 text: () => "Set the amount your farmer will drink or eat"
             );
-            gmcm.AddNumberOption(
+            gmcm.AddTextOption(
                 mod: ModManifest,
                 getValue: () => Config.BulkEatAmount,
                 setValue: value => Config.BulkEatAmount = value,
-                name: () => "Eat this Amount",
-                tooltip: () => "The amount your farmer will eat from your stack of food",
-                min: 1,
-                max: 20,
-                interval: 1
+                name: () => "Eat Amount",
+                tooltip: () => "Set how many foods to eat, or use 'Until Full Health & Stamina'",
+                allowedValues: new[] { "1", "2", "3", "5", "10", "Until Full Health & Stamina" },
+                formatAllowedValue: value => value
             );
+
             gmcm.AddNumberOption(
                 mod: ModManifest,
                 getValue: () => Config.BulkDrinkAmount,
                 setValue: value => Config.BulkDrinkAmount = value,
-                name: () => "Drink this Amount",
-                tooltip: () => "The amount your farmer will drink from your stack of drinks",
+                name: () => "Drink Amount",
+                tooltip: () => "How many drinks to consume at once",
                 min: 1,
                 max: 20,
                 interval: 1
